@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 import com.napoleon.life.common.persistence.Entity;
  
- public class LifeWeight implements Entity<Long>{  
+ public class LifeWaist implements Entity<Long>{  
    
 	private static final long serialVersionUID = 1300104577063263709L;
 
@@ -20,20 +20,20 @@ import com.napoleon.life.common.persistence.Entity;
     private String userNo;  
     
  	/**
-	 *  体重重量（KG）
+	 *  腰围（CM）
 	 */
-    private BigDecimal weight;  
+    private BigDecimal waist;  
     
  	/**
-	 *  身体质量指标（体重公斤除以身高米的平方）
+	 *  体脂率 男：((腰围(CM)*0.74) - [体重(KG) * 0.082 + 44.74]) / 体重(KG) * 100%
+	 *  体脂率 女：((腰围(CM)*0.74) - [体重(KG) * 0.082 + 34.89]) / 体重(KG) * 100%
 	 */
-    private BigDecimal bmi;  
+    private BigDecimal bfr;  
     
     /**
-     * 静态代谢率 男：((10 * 体重［KG］) + (6.25 * 身高［CM］) - (5 * 年龄) ＋ 5)
-     * 静态代谢率 女：((10 * 体重［KG］) + (6.25 * 身高［CM］) - (5 * 年龄) － 161)
+     * 腰围身高比(腰围（CM）／身高（CM） * 100%)
      */
-    private BigDecimal rmr;
+    private BigDecimal whr;
     
  	/**
 	 *  测量时间
@@ -76,21 +76,6 @@ import com.napoleon.life.common.persistence.Entity;
 	public void setUserNo(String userNo) {
 		this.userNo = userNo;
 	}
-  
-    public BigDecimal getWeight() {  
-        return weight;  
-    }  
-      
-    public void setWeight(BigDecimal weight) {  
-        this.weight = weight;  
-    }  
-    public BigDecimal getBmi() {  
-        return bmi;  
-    }  
-      
-    public void setBmi(BigDecimal bmi) {  
-        this.bmi = bmi;  
-    }  
     public Timestamp getMeasurementTime() {  
         return measurementTime;  
     }  
@@ -127,11 +112,27 @@ import com.napoleon.life.common.persistence.Entity;
         this.week = week;  
     }
 
-	public BigDecimal getRmr() {
-		return rmr;
+	public BigDecimal getWaist() {
+		return waist;
 	}
 
-	public void setRmr(BigDecimal rmr) {
-		this.rmr = rmr;
-	}  
+	public void setWaist(BigDecimal waist) {
+		this.waist = waist;
+	}
+
+	public BigDecimal getBfr() {
+		return bfr;
+	}
+
+	public void setBfr(BigDecimal bfr) {
+		this.bfr = bfr;
+	}
+
+	public BigDecimal getWhr() {
+		return whr;
+	}
+
+	public void setWhr(BigDecimal whr) {
+		this.whr = whr;
+	}
  }  

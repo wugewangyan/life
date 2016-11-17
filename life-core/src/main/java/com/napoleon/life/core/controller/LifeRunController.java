@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.abel533.echarts.Option;
+import com.napoleon.life.core.dto.LifeRunYearDetailDto;
 import com.napoleon.life.core.entity.LifeRun;
 import com.napoleon.life.core.service.LifeRunService;
 import com.napoleon.life.framework.base.BaseController;
+import com.napoleon.life.framework.resolver.ParamValid;
 
 @Controller
 @RequestMapping("/life/run")
@@ -32,10 +34,8 @@ public class LifeRunController extends BaseController{
 	
 	@RequestMapping(value = "/findYearRunDetail", method = RequestMethod.GET)
 	@ResponseBody
-    public Option findYearRunDetail(Integer year) {
-        Option result = this.lifeRunService.findByYear("2732650059@qq.com", year);
-        return result;
-        
+    public Option findYearRunDetail(@ParamValid LifeRunYearDetailDto dto) {
+        return this.lifeRunService.findByYear(dto.getUserNo(), dto.getYear());
     }
 	
 	@RequestMapping(value = "/groupByYearAndWeek", method = RequestMethod.GET)

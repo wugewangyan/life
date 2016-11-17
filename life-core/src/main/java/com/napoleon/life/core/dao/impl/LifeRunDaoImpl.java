@@ -19,9 +19,9 @@ public class LifeRunDaoImpl extends GenericDaoDefault<LifeRun> implements
 		LifeRunDao {
 
 	@Override
-	public List<LifeRun> findByDay(String userId, Date startTime, Date endTime){
+	public List<LifeRun> findByDay(String userNo, Date startTime, Date endTime){
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
+		map.put("userNo", userNo);
 		map.put("startTime", startTime);
 		map.put("endTime", endTime);
 		
@@ -30,10 +30,10 @@ public class LifeRunDaoImpl extends GenericDaoDefault<LifeRun> implements
 	
 	
 	@Override
-	public List<LifeRun> findByYearAndWeek(String userId, Integer year,
+	public List<LifeRun> findByYearAndWeek(String userNo, Integer year,
 			Integer week) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
+		map.put("userNo", userNo);
 		map.put("year", year);
 		map.put("week", week);
 		
@@ -41,10 +41,10 @@ public class LifeRunDaoImpl extends GenericDaoDefault<LifeRun> implements
 	}
 
 	@Override
-	public List<LifeRun> findByYearAndQuarter(String userId, Integer year,
+	public List<LifeRun> findByYearAndQuarter(String userNo, Integer year,
 			QuarterEnum quarter) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
+		map.put("userNo", userNo);
 		map.put("year", year);
 		map.put("quarter", quarter.getCode());
 		
@@ -58,18 +58,18 @@ public class LifeRunDaoImpl extends GenericDaoDefault<LifeRun> implements
 	
 	
 	@Override
-	public List<LifeRun> findByYear(String userId, Integer year) {
+	public List<LifeRun> findByYear(String userNo, Integer year) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
+		map.put("userNo", userNo);
 		map.put("year", year);
 		return (List<LifeRun>)super.query("findByYear", map);
 	}
 	
 	@Override
-	public List<LifeRun> findByYearAndMonth(String userId, Integer year,
+	public List<LifeRun> findByYearAndMonth(String userNo, Integer year,
 			Integer month) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
+		map.put("userNo", userNo);
 		map.put("year", year);
 		map.put("month", month);
 		
@@ -77,17 +77,17 @@ public class LifeRunDaoImpl extends GenericDaoDefault<LifeRun> implements
 	}
 
 	@Override
-	public List<SumWeekRunBean> groupByYearAndWeek(String userId, Integer year) {
+	public List<SumWeekRunBean> groupByYearAndWeek(String userNo, Integer year) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
+		map.put("userNo", userNo);
 		map.put("year", year);
 		return super.query("groupByYearAndWeek", map);
 	}
 
 	@Override
-	public List<SumMonthRunBean> groupByYearAndMonth(String userId, Integer year) {
+	public List<SumMonthRunBean> groupByYearAndMonth(String userNo, Integer year) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
+		map.put("userNo", userNo);
 		map.put("year", year);
 		return super.query("groupByYearAndMonth", map);
 	}

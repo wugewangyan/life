@@ -4,7 +4,7 @@
 <mapper namespace="LifeExercise">
 	<resultMap id="BaseResultMap" type="com.napoleon.life.core.entity.LifeExercise">
 	    <id column="id" property="id" jdbcType="BIGINT"/>
-			<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+			<result column="user_no" property="userNo" jdbcType="VARCHAR"/>
 			<result column="exercise_type" property="exerciseType" jdbcType="VARCHAR"/>
 			<result column="amount" property="amount" jdbcType="TINYINT"/>
 			<result column="unit" property="unit" jdbcType="VARCHAR"/>
@@ -17,18 +17,18 @@
   	</resultMap>
   	
   	<sql id = "Base_Column_List">
-		id, user_id, exercise_type, amount, unit, group_amount, exercise_time, year, month, day, week
+		id, user_no, exercise_type, amount, unit, group_amount, exercise_time, year, month, day, week
 	</sql>
 	
 	<insert id="insert" parameterType="com.napoleon.life.core.entity.LifeExercise" useGeneratedKeys="true" keyProperty="id">
-		 INSERT INTO life_exercise ( user_id, exercise_type, amount, unit, group_amount, exercise_time, year, month, day, week  )  VALUES( #{userId, jdbcType=VARCHAR}, #{exerciseType, jdbcType=VARCHAR}, #{amount, jdbcType=TINYINT}, #{unit, jdbcType=VARCHAR}, #{groupAmount, jdbcType=TINYINT}, #{exerciseTime, jdbcType=TIMESTAMP}, #{year, jdbcType=TINYINT}, #{month, jdbcType=TINYINT}, #{day, jdbcType=TINYINT}, #{week, jdbcType=TINYINT}  ) 
+		 INSERT INTO life_exercise ( user_no, exercise_type, amount, unit, group_amount, exercise_time, year, month, day, week  )  VALUES( #{userNo, jdbcType=VARCHAR}, #{exerciseType, jdbcType=VARCHAR}, #{amount, jdbcType=TINYINT}, #{unit, jdbcType=VARCHAR}, #{groupAmount, jdbcType=TINYINT}, #{exerciseTime, jdbcType=TIMESTAMP}, #{year, jdbcType=TINYINT}, #{month, jdbcType=TINYINT}, #{day, jdbcType=TINYINT}, #{week, jdbcType=TINYINT}  ) 
 	</insert>
 	
 	<update id="update" parameterType="com.napoleon.life.core.entity.LifeExercise">
 		update LIFE_EXERCISE
 		 <set>
-			<if test="userId != null" >
-		        user_id = #{userId, jdbcType=VARCHAR},
+			<if test="userNo != null" >
+		        user_no = #{userNo, jdbcType=VARCHAR},
 		    </if>
 			<if test="exerciseType != null" >
 		        exercise_type = #{exerciseType, jdbcType=VARCHAR},

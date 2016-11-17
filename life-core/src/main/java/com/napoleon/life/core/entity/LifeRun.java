@@ -16,7 +16,7 @@ import com.napoleon.life.common.persistence.Entity;
  	/**
 	 *  用户名
 	 */
-    private String userId;  
+    private String userNo;  
     
  	/**
 	 *  跑步类型
@@ -71,14 +71,16 @@ import com.napoleon.life.common.persistence.Entity;
     public void setId(Long id) {  
         this.id = id;  
     }  
-    public String getUserId() {  
-        return userId;  
-    }  
       
-    public void setUserId(String userId) {  
-        this.userId = userId;  
-    }  
-    public String getRunType() {  
+    public String getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
+	}
+
+	public String getRunType() {  
         return runType;  
     }  
       

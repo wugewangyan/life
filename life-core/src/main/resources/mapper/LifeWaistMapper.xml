@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="LifeWeight">
-	<resultMap id="BaseResultMap" type="com.napoleon.life.core.entity.LifeWeight">
+<mapper namespace="LifeWaist">
+	<resultMap id="BaseResultMap" type="com.napoleon.life.core.entity.LifeWaist">
 	    <id column="id" property="id" jdbcType="BIGINT"/>
 			<result column="user_no" property="userNo" jdbcType="VARCHAR"/>
-			<result column="weight" property="weight" jdbcType="DECIMAL"/>
-			<result column="bmi" property="bmi" jdbcType="DECIMAL"/>
-			<result column="rmr" property="rmr" jdbcType="DECIMAL"/>
+			<result column="waist" property="waist" jdbcType="DECIMAL"/>
+			<result column="bfr" property="bfr" jdbcType="DECIMAL"/>
+			<result column="whr" property="whr" jdbcType="DECIMAL"/>
 			<result column="measurement_time" property="measurementTime" jdbcType="TIMESTAMP"/>
 			<result column="year" property="year" jdbcType="TINYINT"/>
 			<result column="month" property="month" jdbcType="TINYINT"/>
@@ -16,30 +16,30 @@
   	</resultMap>
   	
   	<sql id = "Base_Column_List">
-		id, user_no, weight, bmi, rmr, measurement_time, year, month, day, week
+		id, user_no, waist, bfr, whr, measurement_time, year, month, day, week
 	</sql>
 	
-	<insert id="insert" parameterType="com.napoleon.life.core.entity.LifeWeight" useGeneratedKeys="true" keyProperty="id">
-		 INSERT INTO life_weight ( user_no, weight, bmi, rmr, measurement_time, year, month, day, week  )  VALUES( #{userNo, jdbcType=VARCHAR},
-		  #{weight, jdbcType=DECIMAL}, #{bmi, jdbcType=DECIMAL}, #{rmr, jdbcType=DECIMAL},
+	<insert id="insert" parameterType="com.napoleon.life.core.entity.LifeWaist" useGeneratedKeys="true" keyProperty="id">
+		 INSERT INTO life_waist ( user_no, waist, bfr, whr, measurement_time, year, month, day, week  )  VALUES( #{userNo, jdbcType=VARCHAR},
+		  #{waist, jdbcType=DECIMAL}, #{bfr, jdbcType=DECIMAL}, #{whr, jdbcType=DECIMAL},
 		   #{measurementTime, jdbcType=TIMESTAMP}, #{year, jdbcType=TINYINT},
 		    #{month, jdbcType=TINYINT}, #{day, jdbcType=TINYINT}, #{week, jdbcType=TINYINT}  ) 
 	</insert>
 	
-	<update id="update" parameterType="com.napoleon.life.core.entity.LifeWeight">
-		update LIFE_WEIGHT
+	<update id="update" parameterType="com.napoleon.life.core.entity.LifeWaist">
+		update life_waist
 		 <set>
 			<if test="userNo != null" >
 		        user_no = #{userNo, jdbcType=VARCHAR},
 		    </if>
-			<if test="weight != null" >
-		        weight = #{weight, jdbcType=DECIMAL},
+			<if test="waist != null" >
+		        waist = #{waist, jdbcType=DECIMAL},
 		    </if>
-			<if test="bmi != null" >
-		        bmi = #{bmi, jdbcType=DECIMAL},
+			<if test="bfr != null" >
+		        bfr = #{bfr, jdbcType=DECIMAL},
 		    </if>
-		    <if test="rmr != null" >
-		        rmr = #{rmr, jdbcType=DECIMAL},
+		    <if test="whr != null" >
+		        whr = #{whr, jdbcType=DECIMAL},
 		    </if>
 			<if test="measurementTime != null" >
 		        measurement_time = #{measurementTime, jdbcType=TIMESTAMP},
@@ -62,38 +62,26 @@
 	</update>
 	
 	<delete id="delete" parameterType="java.lang.Long">
-		 DELETE FROM life_weight WHERE id = #{id, jdbcType=BIGINT}
+		 DELETE FROM life_waist WHERE id = #{id, jdbcType=BIGINT}
 	</delete>
 	
 	<select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
-		 SELECT <include refid="Base_Column_List" /> FROM life_weight WHERE id = #{id, jdbcType=BIGINT}
+		 SELECT <include refid="Base_Column_List" /> FROM life_waist WHERE id = #{id, jdbcType=BIGINT}
 	</select>
 	 
 	 
 	<select id="getAll" resultMap="BaseResultMap">
-		 SELECT <include refid="Base_Column_List" /> FROM life_weight
+		 SELECT <include refid="Base_Column_List" /> FROM life_waist
 	</select>
 	
 	<select id="findByMonth" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
 		select 
 			<include refid="Base_Column_List" /> 
-		from life_weight
+		from life_waist
 		where user_no = #{userNo, jdbcType=VARCHAR}
 		  and year = #{year, jdbcType=INTEGER}
 	      and month = #{month, jdbcType=INTEGER}
-	      order by day
-	</select>
-	
-	
-	<select id="findByWeek" resultMap="BaseResultMap"
-		parameterType="java.util.Map">
-		select 
-			<include refid="Base_Column_List" /> 
-		from life_weight
-		where user_no = #{userNo, jdbcType=VARCHAR}
-		  and year = #{year, jdbcType=INTEGER}
-	      and week = #{week, jdbcType=INTEGER}
 	      order by day
 	</select>
 	
@@ -102,19 +90,10 @@
 		parameterType="java.util.Map">
 		select 
 			<include refid="Base_Column_List" /> 
-		from life_weight
+		from life_waist
 		where user_no = #{userNo, jdbcType=VARCHAR}
 	      and measurement_time between #{startTime, jdbcType=TIMESTAMP} and #{endTime, jdbcType=TIMESTAMP}
 	      order by month, day
-	</select>
-	
-	<select id="findRecentWeightInfo" resultMap="BaseResultMap"
-		parameterType="java.util.Map">
-		select 
-			<include refid="Base_Column_List" /> 
-		from life_weight lw
-		where user_no = #{userNo, jdbcType=VARCHAR} 
-		and not exists(select 1 from life_weight w where w.user_no = lw.user_no and w.measurement_time > lw.measurement_time)
 	</select>
 	
 </mapper>

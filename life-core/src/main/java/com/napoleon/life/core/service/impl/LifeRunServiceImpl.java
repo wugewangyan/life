@@ -52,29 +52,29 @@ public class LifeRunServiceImpl implements LifeRunService {
 	 * 列表展示某位用户某月的跑步情况
 	 */
 	@Override
-	public List<LifeRun> findByYearAndMonth(String userId, Integer year, Integer month) {
-		return this.lifeRunDao.findByYearAndMonth(userId, year, month);
+	public List<LifeRun> findByYearAndMonth(String userNo, Integer year, Integer month) {
+		return this.lifeRunDao.findByYearAndMonth(userNo, year, month);
 	}
 	
 	
 	/**
 	 * 统计某位用户在某年每个月的跑步情况（长度）
-	 * @param userId
+	 * @param userNo
 	 * @param year
 	 * @return
 	 */
-	public List<SumMonthRunBean> groupByYearAndMonth(String userId, Integer year){
-		return this.lifeRunDao.groupByYearAndMonth(userId, year);
+	public List<SumMonthRunBean> groupByYearAndMonth(String userNo, Integer year){
+		return this.lifeRunDao.groupByYearAndMonth(userNo, year);
 	}
 	
 	/**
 	 * 统计某位用户在某年每个星期的跑步情况（长度）
-	 * @param userId
+	 * @param userNo
 	 * @param year
 	 * @return
 	 */
-	public Option groupByYearAndWeek(String userId, Integer year){
-		List<SumWeekRunBean> weekSums = this.lifeRunDao.groupByYearAndWeek(userId, year);
+	public Option groupByYearAndWeek(String userNo, Integer year){
+		List<SumWeekRunBean> weekSums = this.lifeRunDao.groupByYearAndWeek(userNo, year);
 		if(!weekSums.isEmpty()){
 			RunWeekSumBean result = new RunWeekSumBean();
 			List<String>  weeks = new ArrayList<String>();
@@ -138,8 +138,8 @@ public class LifeRunServiceImpl implements LifeRunService {
 	
 	
 	
-	public Option findByYear(String userId, Integer year){
-		List<LifeRun> lifeRuns = this.lifeRunDao.findByYear(userId, year);
+	public Option findByYear(String userNo, Integer year){
+		List<LifeRun> lifeRuns = this.lifeRunDao.findByYear(userNo, year);
 		RunTimeLineBean result = new RunTimeLineBean();
 		
 		if(!lifeRuns.isEmpty()){

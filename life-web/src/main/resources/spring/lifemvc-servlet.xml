@@ -8,6 +8,16 @@
 						   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
 						   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
 
+
+	<bean id="servletPropertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:property/life-config.properties</value>
+			</list>
+		</property>
+	</bean>
+
 	<!-- 
 	启动包扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean
 	扫描各个类确定@Controller和@RequestMapping注解的存在。只有带有这些注解的类才能够像控制器一样操作 -->
@@ -48,7 +58,7 @@
 		</mvc:message-converters>
 		
 		<mvc:argument-resolvers>  
-            <bean class="com.napoleon.life.framework.resolver.UserArgumentResolver"/>  
+            <bean class="com.napoleon.life.framework.resolver.UserArgumentResolver"/>
         </mvc:argument-resolvers>
 	</mvc:annotation-driven>
 	
