@@ -27,3 +27,4 @@ public interface LifeRunService {
 	
 	public Option groupByYearAndWeek(String userNo, Integer year);
 }
+

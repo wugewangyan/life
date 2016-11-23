@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.napoleon.life.core.dto.LifeDeleteDto;
-import com.napoleon.life.core.dto.LifeWeightEditDto;
 import com.napoleon.life.core.dto.LifeQueryInfoDto;
+import com.napoleon.life.core.dto.LifeWeightEditDto;
 import com.napoleon.life.core.facade.LifeWeightFacade;
 import com.napoleon.life.framework.base.BaseController;
 import com.napoleon.life.framework.resolver.ParamValid;

@@ -38,3 +38,4 @@ public class SumMonthRunBean {
 		this.totalTime = totalTime;
 	}
 }
+

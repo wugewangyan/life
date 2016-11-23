@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LifeCostType">
+	<resultMap id="BaseResultMap" type="com.napoleon.life.core.entity.LifeCostType">
+	    <id column="id" property="id" jdbcType="BIGINT"/>
+			<result column="cost_type_no" property="costTypeNo" jdbcType="VARCHAR"/>
+			<result column="cost_type" property="costType" jdbcType="VARCHAR"/>
+			<result column="description" property="description" jdbcType="VARCHAR"/>
+			<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  	</resultMap>
+  	
+  	<sql id = "Base_Column_List">
+		id, cost_type_no, cost_type, description, create_time, update_time
+	</sql>
+	
+	<insert id="insert" parameterType="com.napoleon.life.core.entity.LifeCostType">
+		 INSERT INTO life_cost_type ( cost_type_no, cost_type, description, create_time, update_time  )  VALUES( #{costTypeNo, jdbcType=VARCHAR}, #{costType, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{createTime, jdbcType=TIMESTAMP}, #{updateTime, jdbcType=TIMESTAMP}  ) 
+	</insert>
+	
+	<update id="update" parameterType="com.napoleon.life.core.entity.LifeCostType">
+		update LIFE_COST_TYPE
+		 <set>
+			<if test="costTypeNo != null" >
+		        cost_type_no = #{costTypeNo, jdbcType=VARCHAR},
+		    </if>
+			<if test="costType != null" >
+		        cost_type = #{costType, jdbcType=VARCHAR},
+		    </if>
+			<if test="description != null" >
+		        description = #{description, jdbcType=VARCHAR},
+		    </if>
+			<if test="createTime != null" >
+		        create_time = #{createTime, jdbcType=TIMESTAMP},
+		    </if>
+			<if test="updateTime != null" >
+		        update_time = #{updateTime, jdbcType=TIMESTAMP},
+		    </if>
+		</set>
+		
+		 where id = #{id, jdbcType=BIGINT}
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Long">
+		 DELETE FROM life_cost_type WHERE id = #{id, jdbcType=BIGINT}
+	</delete>
+	
+	<select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		 SELECT <include refid="Base_Column_List" /> FROM life_cost_type WHERE id = #{id, jdbcType=BIGINT}
+	</select>
+	 
+	 
+	<select id="list" resultMap="BaseResultMap">
+		 SELECT <include refid="Base_Column_List" /> FROM life_cost_type
+	</select>
+	
+	<select id="findByCostTypeNo" resultMap="BaseResultMap" parameterType="java.util.Map">
+		 SELECT <include refid="Base_Column_List" /> FROM life_cost_type WHERE cost_type_no = #{costTypeNo, jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

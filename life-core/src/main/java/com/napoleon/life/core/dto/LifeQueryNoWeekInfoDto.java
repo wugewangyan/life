@@ -17,14 +17,16 @@ public class LifeQueryNoWeekInfoDto extends BaseDto{
 	private Long queryEndTime;
 	
 	public boolean validTime(){
-		if(OpTypeEnum.QUERY_WITH_DATE_RANGE.getCode().equals(this.opType)){
-			if(StringUtil.notEmpty(this.queryEndTime)){
-				return true;
-			}else{
+		if(StringUtil.notEmpty(this.opType)){
+			if(OpTypeEnum.QUERY_WITH_DATE_RANGE.getCode().equals(this.opType)){
+				if(StringUtil.notEmpty(this.queryEndTime)){
+					return true;
+				}else{
+					return false;
+				}
+			}else if(OpTypeEnum.QUERY_WITH_WEEK.getCode().equals(this.opType)){
 				return false;
 			}
-		}else if(OpTypeEnum.QUERY_WITH_WEEK.getCode().equals(this.opType)){
-			return false;
 		}
 		
 		return true;

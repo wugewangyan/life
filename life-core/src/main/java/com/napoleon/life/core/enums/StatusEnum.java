@@ -45,3 +45,4 @@ public enum StatusEnum {
 		this.desc = desc;
 	}
 }
+

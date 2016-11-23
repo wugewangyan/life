@@ -25,7 +25,7 @@ public class LifeWeightDaoImpl extends GenericDaoDefault<LifeWeight> implements
 	}
 
 	@Override
-	public List<LifeWeight> findByWeek(String userNo, Integer year, Integer week) {
+	public List<LifeWeight> findByWeek(String userNo, Integer year, Integer week){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
 		map.put("year", year);
