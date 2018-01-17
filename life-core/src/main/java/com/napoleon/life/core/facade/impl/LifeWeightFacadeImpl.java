@@ -13,14 +13,14 @@ import org.springframework.stereotype.Service;
 
 import com.napoleon.life.common.util.StringUtil;
 import com.napoleon.life.core.dto.LifeDeleteDto;
-import com.napoleon.life.core.dto.LifeWeightEditDto;
 import com.napoleon.life.core.dto.LifeQueryInfoDto;
+import com.napoleon.life.core.dto.LifeWeightEditDto;
 import com.napoleon.life.core.entity.LifeWeight;
 import com.napoleon.life.core.enums.OpTypeEnum;
 import com.napoleon.life.core.facade.LifeWeightFacade;
 import com.napoleon.life.core.service.LifeWeightService;
-import com.napoleon.life.exception.CommonResultCode;
 import com.napoleon.life.framework.result.CommonRltUtil;
+import com.napoleon.life.user.code.UserModelCode;
 import com.napoleon.life.user.enums.UserSexEnum;
 import com.napoleon.life.user.service.CommonSerialNoService;
 
@@ -42,17 +42,22 @@ public class LifeWeightFacadeImpl implements LifeWeightFacade {
 		if(StringUtil.notEmpty(weightEditDto.getWeightId())){
 			weightInfo = weightService.findByWeightId(Long.valueOf(weightEditDto.getWeightId()));
 			if(weightInfo == null){
-				return CommonRltUtil.createCommonRltToString(CommonResultCode.WEIGHTINFO_NOT_FOUND);
+				return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 			}else if(!weightEditDto.getUserNo().equals(weightInfo.getUserNo())){
-				return CommonRltUtil.createCommonRltToString(CommonResultCode.NOT_AUTH_TO_EDIT);
+				return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 			}
 		}else{
 			weightInfo = new LifeWeight();
 			weightInfo.setUserNo(weightEditDto.getUserNo());
 		}
 
-		Timestamp measureTime = new Timestamp(Long.parseLong(weightEditDto.getMeasurementTime()));
-		weightInfo.setMeasurementTime(measureTime);
+		if(StringUtil.notEmpty(weightEditDto.getMeasurementTime())){
+			Timestamp measureTime = new Timestamp(Long.parseLong(weightEditDto.getMeasurementTime()));
+			weightInfo.setMeasurementTime(measureTime);
+		}else{
+			weightInfo.setMeasurementTime(new Timestamp(new Date().getTime()));
+		}
+		
 		weightInfo.setWeight(new BigDecimal(weightEditDto.getWeight()));
 		
 		if(StringUtil.notEmpty(weightEditDto.getHeight())){
@@ -64,27 +69,27 @@ public class LifeWeightFacadeImpl implements LifeWeightFacade {
 		}
 		
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(measureTime);
+		calendar.setTime(weightInfo.getMeasurementTime());
 		weightInfo.setYear(calendar.get(Calendar.YEAR));
 		weightInfo.setMonth(calendar.get(Calendar.MONTH) + 1);
 		weightInfo.setDay(calendar.get(Calendar.DAY_OF_MONTH));
 		weightInfo.setWeek(calendar.get(Calendar.WEEK_OF_YEAR));
 		
 		this.weightService.insertOrUpdate(weightInfo);
-		return CommonRltUtil.createCommonRltToString(CommonResultCode.SUCCESS);
+		return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 	}
 	
 	@Override
 	public String deleteWeightInfo(LifeDeleteDto deleteInfo) {
 		LifeWeight weightInfo = this.weightService.findByWeightId(Long.valueOf(deleteInfo.getEntityId()));
 		if(weightInfo == null){
-			return CommonRltUtil.createCommonRltToString(CommonResultCode.WEIGHTINFO_NOT_FOUND);
+			return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 		}else if(!deleteInfo.getUserNo().equals(weightInfo.getUserNo())){
-			return CommonRltUtil.createCommonRltToString(CommonResultCode.NOT_AUTH_TO_EDIT);
+			return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 		}
 		
 		this.weightService.delete(weightInfo.getId());
-		return CommonRltUtil.createCommonRltToString(CommonResultCode.SUCCESS);
+		return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 	}
 
 	
@@ -104,10 +109,10 @@ public class LifeWeightFacadeImpl implements LifeWeightFacade {
 			result = this.weightService.findByDate(weightQueryDto.getUserNo(), new Timestamp(weightQueryDto.getQueryStartTime()),
 					new Timestamp(weightQueryDto.getQueryEndTime()));
 		}else{
-			return CommonRltUtil.createCommonRltToString(CommonResultCode.OP_TYPE_NOT_SUPPORT);
+			return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 		}
 		
-		return CommonRltUtil.createCommonRltToString(CommonResultCode.SUCCESS, result);
+		return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 	}
 
 	private BigDecimal calculateBMI(String weight, Integer height) {

@@ -2,19 +2,16 @@ package com.napoleon.life.core.service.impl;
    
  import java.util.List;
 
-import com.napoleon.life.core.entity.LifeCostType;  
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.stereotype.Service;  
-
-import com.napoleon.life.exception.CommonResultCode;  
-import com.napoleon.life.common.util.StringUtil;  
-
-import org.springframework.beans.factory.annotation.Autowired;  
-import org.springframework.transaction.annotation.Transactional;  
-
-import com.napoleon.life.exception.CommonException;  
-import com.napoleon.life.core.dao.LifeCostTypeDao;  
-import com.napoleon.life.core.service.LifeCostTypeService;  
+import com.napoleon.life.common.util.StringUtil;
+import com.napoleon.life.core.dao.LifeCostTypeDao;
+import com.napoleon.life.core.entity.LifeCostType;
+import com.napoleon.life.core.service.LifeCostTypeService;
+import com.napoleon.life.exception.CommonException;
+import com.napoleon.life.user.code.UserModelCode;
  
  @Service
  public class LifeCostTypeServiceImpl implements LifeCostTypeService{
@@ -32,7 +29,7 @@ import com.napoleon.life.core.service.LifeCostTypeService;
 				this.lifeCostTypeDao.add(info);
 			}
 		}else{
-			throw new CommonException(CommonResultCode.SYSTEM_ERR);
+			throw new CommonException(UserModelCode.USER_ERROR);
 		}
 	}
 

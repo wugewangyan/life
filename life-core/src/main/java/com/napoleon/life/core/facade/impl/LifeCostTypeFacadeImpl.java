@@ -14,8 +14,8 @@ import com.napoleon.life.core.entity.LifeCostType;
 import com.napoleon.life.core.facade.LifeCostTypeFacade;
 import com.napoleon.life.core.service.LifeCostTypeService;
 import com.napoleon.life.core.util.Constants;
-import com.napoleon.life.exception.CommonResultCode;
 import com.napoleon.life.framework.result.CommonRltUtil;
+import com.napoleon.life.user.code.UserModelCode;
 import com.napoleon.life.user.service.CommonSerialNoService;
  
  @Service
@@ -33,37 +33,37 @@ import com.napoleon.life.user.service.CommonSerialNoService;
 		if(StringUtil.notEmpty(editDto.getEntityId())){
 			lifeCostType = lifeCostTypeService.findByEntityId(Long.valueOf(editDto.getEntityId()));
 			if(lifeCostType == null){
-				return CommonRltUtil.createCommonRltToString(CommonResultCode.COST_TYPE_NOT_FOUND);
+				return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 			}
 		}else{
 			lifeCostType = new LifeCostType();
 			lifeCostType.setCreateTime(new Timestamp(new Date().getTime()));
+			lifeCostType.setCostTypeNo(this.serialNoService.getSerialNo(Constants.COST_TYPE_NO));
 		}
 
-		lifeCostType.setCostTypeNo(this.serialNoService.getSerialNo(Constants.COST_TYPE_NO));
 		lifeCostType.setCostType(editDto.getCostType());
 		lifeCostType.setDescription(editDto.getDescription());
 		lifeCostType.setUpdateTime(new Timestamp(new Date().getTime()));
 		
 		this.lifeCostTypeService.insertOrUpdate(lifeCostType);
-		return CommonRltUtil.createCommonRltToString(CommonResultCode.SUCCESS);
+		return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 	}
 	
 	@Override
 	public String deleteCostTypeInfo(LifeDeleteDto deleteInfo) {
 		LifeCostType lifeCostType = this.lifeCostTypeService.findByCostTypeNo(deleteInfo.getEntityId());
 		if(lifeCostType == null){
-			return CommonRltUtil.createCommonRltToString(CommonResultCode.COST_TYPE_NOT_FOUND);
+			return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 		}
 		
 		this.lifeCostTypeService.delete(lifeCostType.getId());
-		return CommonRltUtil.createCommonRltToString(CommonResultCode.SUCCESS);
+		return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 	}
      
      @Override
      public String getALLCostTypes() {
          List<LifeCostType> result = this.lifeCostTypeService.findAllCostTypes();
-         return CommonRltUtil.createCommonRltToString(CommonResultCode.SUCCESS, result);
+         return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
      }
 }
  

@@ -11,10 +11,19 @@ public class LifeWeightEditDto extends BaseDto {
 	@Validator(desc = "用户体重", nullable = false, isDouble = true)
 	private String weight;
 	
-	@Validator(desc = "测量时间", nullable = false, isDate = true)
+	@Validator(desc = "测量时间", nullable = true, isDate = true)
 	private String measurementTime;
-
 	
+	private String key;
+	
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
 	public String getWeightId() {
 		return weightId;
 	}

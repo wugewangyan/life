@@ -21,8 +21,8 @@ import com.napoleon.life.core.enums.OpTypeEnum;
 import com.napoleon.life.core.facade.LifeWaistFacade;
 import com.napoleon.life.core.service.LifeWaistService;
 import com.napoleon.life.core.service.LifeWeightService;
-import com.napoleon.life.exception.CommonResultCode;
 import com.napoleon.life.framework.result.CommonRltUtil;
+import com.napoleon.life.user.code.UserModelCode;
 import com.napoleon.life.user.enums.UserSexEnum;
 import com.napoleon.life.user.service.CommonSerialNoService;
 
@@ -47,9 +47,9 @@ public class LifeWaistFacadeImpl implements LifeWaistFacade {
 		if(StringUtil.notEmpty(waistEditDto.getWaistId())){
 			waistInfo = waistService.findByWaistId(Long.valueOf(waistEditDto.getWaistId()));
 			if(waistInfo == null){
-				return CommonRltUtil.createCommonRltToString(CommonResultCode.WAISTINFO_NOT_FOUND);
+				return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 			}else if(!waistEditDto.getUserNo().equals(waistInfo.getUserNo())){
-				return CommonRltUtil.createCommonRltToString(CommonResultCode.NOT_AUTH_TO_EDIT);
+				return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 			}
 		}else{
 			waistInfo = new LifeWaist();
@@ -77,7 +77,7 @@ public class LifeWaistFacadeImpl implements LifeWaistFacade {
 		waistInfo.setWeek(calendar.get(Calendar.WEEK_OF_YEAR));
 		
 		this.waistService.insertOrUpdate(waistInfo);
-		return CommonRltUtil.createCommonRltToString(CommonResultCode.SUCCESS);
+		return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 	}
 	
 	
@@ -85,13 +85,13 @@ public class LifeWaistFacadeImpl implements LifeWaistFacade {
 	public String deleteWaistInfo(LifeDeleteDto deleteInfo) {
 		LifeWaist waistInfo = waistService.findByWaistId(Long.valueOf(deleteInfo.getEntityId()));
 		if(waistInfo == null){
-			return CommonRltUtil.createCommonRltToString(CommonResultCode.WAISTINFO_NOT_FOUND);
+			return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 		}else if(!deleteInfo.getUserNo().equals(waistInfo.getUserNo())){
-			return CommonRltUtil.createCommonRltToString(CommonResultCode.NOT_AUTH_TO_EDIT);
+			return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 		}
 		
 		this.waistService.delete(waistInfo.getId());
-		return CommonRltUtil.createCommonRltToString(CommonResultCode.SUCCESS);
+		return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 	}
 
 	
@@ -109,10 +109,10 @@ public class LifeWaistFacadeImpl implements LifeWaistFacade {
 			result = this.waistService.findByDate(waistQueryDto.getUserNo(), new Timestamp(waistQueryDto.getQueryStartTime()),
 					new Timestamp(waistQueryDto.getQueryEndTime()));
 		}else{
-			return CommonRltUtil.createCommonRltToString(CommonResultCode.OP_TYPE_NOT_SUPPORT);
+			return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 		}
 		
-		return CommonRltUtil.createCommonRltToString(CommonResultCode.SUCCESS, result);
+		return CommonRltUtil.createCommonRltToString(UserModelCode.USER_ERROR);
 	}
 
 	private BigDecimal calculateWHR(String waist, Integer height) {

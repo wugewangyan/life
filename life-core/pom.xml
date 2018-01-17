@@ -65,6 +65,27 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 		</dependency>
+		
+		<dependency>  
+        	<groupId>org.activiti</groupId>  
+        	<artifactId>activiti-engine</artifactId>  
+        	<version>5.22.0</version>
+      	</dependency>
+      	
+      
+      <!-- activiti+spring -->
+      	<dependency>
+           <groupId>org.activiti</groupId>
+           <artifactId>activiti-spring</artifactId>
+           <version>5.22.0</version>  
+       	</dependency>
+       	
+       	<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+			<scope>provided</scope>
+		</dependency>
 
 
 		<!-- database dependencies -->
@@ -152,11 +173,12 @@
 		  <version>1.7.6</version>
 		</dependency>
 		
+		<!-- 
 		<dependency>
             <groupId>org.apache.thrift</groupId>
             <artifactId>libthrift</artifactId>
             <version>0.9.3</version>
-        </dependency>
+        </dependency> -->
 	</dependencies>
 
 	<build>
@@ -190,7 +212,7 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
-            <!-- 
+
             <plugin>
 				<groupId>org.apache.avro</groupId>
 				<artifactId>avro-maven-plugin</artifactId>
@@ -207,8 +229,9 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 			
+			<!-- 
 			<plugin>
                 <groupId>org.apache.thrift.tools</groupId>
                 <artifactId>maven-thrift-plugin</artifactId>
@@ -235,7 +258,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>  
+            </plugin> -->  
             
 		</plugins>
 		

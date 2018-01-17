@@ -12,7 +12,7 @@ import com.napoleon.life.core.dao.LifeWeightDao;
 import com.napoleon.life.core.entity.LifeWeight;
 import com.napoleon.life.core.service.LifeWeightService;
 import com.napoleon.life.exception.CommonException;
-import com.napoleon.life.exception.CommonResultCode;
+import com.napoleon.life.user.code.UserModelCode;
 
 @Service
 public class LifeWeightServiceImpl implements LifeWeightService {
@@ -46,7 +46,7 @@ public class LifeWeightServiceImpl implements LifeWeightService {
 				this.lifeWeightDao.add(weightInfo);
 			}
 		}else{
-			throw new CommonException(CommonResultCode.SYSTEM_ERR);
+			throw new CommonException(UserModelCode.USER_ERROR);
 		}
 	}
 

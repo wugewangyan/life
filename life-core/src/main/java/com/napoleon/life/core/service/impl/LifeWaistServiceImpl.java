@@ -12,7 +12,7 @@ import com.napoleon.life.core.dao.LifeWaistDao;
 import com.napoleon.life.core.entity.LifeWaist;
 import com.napoleon.life.core.service.LifeWaistService;
 import com.napoleon.life.exception.CommonException;
-import com.napoleon.life.exception.CommonResultCode;
+import com.napoleon.life.user.code.UserModelCode;
 
 @Service
 public class LifeWaistServiceImpl implements LifeWaistService {
@@ -41,7 +41,7 @@ public class LifeWaistServiceImpl implements LifeWaistService {
 				this.lifeWaistDao.add(waistInfo);
 			}
 		}else{
-			throw new CommonException(CommonResultCode.SYSTEM_ERR);
+			throw new CommonException(UserModelCode.USER_ERROR);
 		}
 	}
 

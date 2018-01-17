@@ -135,4 +135,12 @@ import com.napoleon.life.common.persistence.Entity;
 	public void setWhr(BigDecimal whr) {
 		this.whr = whr;
 	}
+
+	@Override
+	public String toString() {
+		return "LifeWaist [id=" + id + ", userNo=" + userNo + ", waist="
+				+ waist + ", bfr=" + bfr + ", whr=" + whr
+				+ ", measurementTime=" + measurementTime + ", year=" + year
+				+ ", month=" + month + ", day=" + day + ", week=" + week + "]";
+	}
  }  
